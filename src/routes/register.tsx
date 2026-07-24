@@ -60,8 +60,8 @@ function RegisterPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4 py-8">
       <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-6 shadow-xl">
-        <div className="mb-6 flex flex-col items-center gap-2">
-          <Logo />
+        <div className="mb-6 flex flex-col items-center gap-3">
+          <Logo size="lg" />
           <p className="text-sm text-muted-foreground">Crea tu cuenta</p>
         </div>
         <form onSubmit={onSubmit} className="flex flex-col gap-3">

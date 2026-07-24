@@ -54,8 +54,8 @@ function AuthPage() {
         {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
       </button>
       <div className="w-full max-w-sm rounded-2xl border border-border bg-card p-6 shadow-xl">
-        <div className="mb-6 flex flex-col items-center gap-2">
-          <Logo />
+        <div className="mb-6 flex flex-col items-center gap-3">
+          <Logo size="lg" />
           <p className="text-sm text-muted-foreground">Inicia sesión para escuchar música</p>
         </div>
         <form onSubmit={onSubmit} className="flex flex-col gap-3">
