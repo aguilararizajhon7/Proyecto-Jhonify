@@ -5,6 +5,7 @@ import { searchYoutube, type YtResult } from "@/lib/youtube.functions";
 import { BlueButton, Input } from "@/components/AppShell";
 import { usePlayer } from "@/lib/player";
 import { supabase } from "@/integrations/supabase/client";
+import { suggestions } from "@/lib/suggestions";
 
 export const Route = createFileRoute("/_authenticated/home")({
   head: () => ({
@@ -133,11 +134,49 @@ function HomePage() {
           </li>
         ))}
         {!loading && results.length === 0 && !error && (
-          <li className="rounded-xl border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
-            Escribe algo y presiona Buscar para empezar.
+          <li className="rounded-xl border border-dashed border-border p-6 text-center text-sm text-muted-foreground">
+            Escribe algo y presiona Buscar, o elige una canción sugerida abajo.
           </li>
         )}
       </ul>
+
+      {results.length === 0 && (
+        <section className="space-y-6">
+          {suggestions.map((cat) => (
+            <div key={cat.label} className="space-y-2">
+              <h2 className="text-lg font-semibold">{cat.label}</h2>
+              <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                {cat.tracks.map((r) => (
+                  <li
+                    key={r.video_id}
+                    className="flex items-center gap-3 rounded-xl border border-border bg-card p-3"
+                  >
+                    <img src={r.thumbnail} alt="" className="h-14 w-14 rounded-lg object-cover" />
+                    <div className="min-w-0 flex-1">
+                      <div className="truncate text-sm font-medium">{r.title}</div>
+                      <div className="truncate text-xs text-muted-foreground">{r.channel}</div>
+                    </div>
+                    <button
+                      onClick={() => favorite(r)}
+                      aria-label="Agregar a favoritos"
+                      className="rounded-full p-2 text-muted-foreground hover:bg-muted hover:text-primary"
+                    >
+                      <Heart className="h-4 w-4" />
+                    </button>
+                    <button
+                      onClick={() => playAndSave(r)}
+                      aria-label="Reproducir"
+                      className="grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-foreground hover:bg-primary-hover"
+                    >
+                      <Play className="h-4 w-4" fill="currentColor" />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </section>
+      )}
     </div>
   );
 }
