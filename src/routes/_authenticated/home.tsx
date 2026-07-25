@@ -43,8 +43,16 @@ function HomePage() {
     }
   }
 
-  async function playAndSave(r: YtResult) {
-    play({ video_id: r.video_id, title: r.title, channel: r.channel, thumbnail: r.thumbnail });
+  async function playAndSave(r: YtResult, list: YtResult[]) {
+    play(
+      { video_id: r.video_id, title: r.title, channel: r.channel, thumbnail: r.thumbnail },
+      list.map((x) => ({
+        video_id: x.video_id,
+        title: x.title,
+        channel: x.channel,
+        thumbnail: x.thumbnail,
+      })),
+    );
     const { data } = await supabase.auth.getUser();
     if (!data.user) return;
     await supabase.from("library").upsert(
@@ -125,7 +133,7 @@ function HomePage() {
               <Heart className="h-5 w-5" />
             </button>
             <button
-              onClick={() => playAndSave(r)}
+              onClick={() => playAndSave(r, results)}
               aria-label="Reproducir"
               className="grid h-10 w-10 place-items-center rounded-full bg-primary text-primary-foreground hover:bg-primary-hover"
             >
@@ -164,7 +172,7 @@ function HomePage() {
                       <Heart className="h-4 w-4" />
                     </button>
                     <button
-                      onClick={() => playAndSave(r)}
+                      onClick={() => playAndSave(r, cat.tracks)}
                       aria-label="Reproducir"
                       className="grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-foreground hover:bg-primary-hover"
                     >

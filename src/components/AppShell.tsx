@@ -3,6 +3,7 @@ import { Home, Library, Heart, User, Moon, Sun, LogOut, Search } from "lucide-re
 import { useTheme } from "@/lib/theme";
 import { Logo } from "@/components/Logo";
 import { PlayerBar } from "@/components/PlayerBar";
+import { FullscreenPlayer } from "@/components/FullscreenPlayer";
 import { supabase } from "@/integrations/supabase/client";
 import { usePlayer } from "@/lib/player";
 import type { ReactNode } from "react";
@@ -71,9 +72,8 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
       </nav>
 
-      <div className={current ? "mb-16" : ""}>
-        <PlayerBar />
-      </div>
+      <PlayerBar />
+      <FullscreenPlayer />
     </div>
   );
 }
