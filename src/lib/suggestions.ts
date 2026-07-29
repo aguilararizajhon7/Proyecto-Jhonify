@@ -9,7 +9,7 @@ export type SuggestionCategory = {
 // Uses YouTube video IDs so they play instantly without needing an API key.
 export const suggestions: SuggestionCategory[] = [
   {
-    label: "Éxitos globales",
+    label: "Tendencias",
     tracks: [
       {
         video_id: "kJQP7kiw5Fk",
@@ -38,7 +38,7 @@ export const suggestions: SuggestionCategory[] = [
     ],
   },
   {
-    label: "Reggaetón & Latino",
+    label: "Hecho para ti",
     tracks: [
       {
         video_id: "TmKh7lAwnBI",
@@ -67,7 +67,7 @@ export const suggestions: SuggestionCategory[] = [
     ],
   },
   {
-    label: "Pop & Rock",
+    label: "Nuevos lanzamientos",
     tracks: [
       {
         video_id: "fJ9rUzIMcZQ",
