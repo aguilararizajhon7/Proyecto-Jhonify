@@ -147,6 +147,8 @@ export function GlobalPlayer() {
   }, [_registerControls]);
 
   // Lyrics + related when track changes.
+  const queueRef = useRef(queue);
+  queueRef.current = queue;
   useEffect(() => {
     if (!current) return;
     setLyrics(null);
@@ -159,7 +161,9 @@ export function GlobalPlayer() {
     getRelated({ data: { q: current.title, exclude: current.video_id } })
       .then((r) => {
         setRelated(r.results);
-        setQueue(r.results.slice(0, 10));
+        // Only auto-fill the queue when nothing is queued, so pressing
+        // "siguiente" keeps following the list the user started from.
+        if (queueRef.current.length === 0) setQueue(r.results.slice(0, 10));
       })
       .catch(() => setRelated([]));
   }, [current, setQueue]);

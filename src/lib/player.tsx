@@ -101,27 +101,36 @@ export function PlayerProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const next = useCallback(() => {
-    setQueueState((q) => {
-      if (q.length === 0) return q;
-      const [head, ...rest] = q;
-      setHistory((h) => (current ? [...h, current] : h));
-      setCurrent(head);
-      return rest;
-    });
-  }, [current]);
+    if (queue.length === 0) {
+      controlsRef.current?.seekTo(0);
+      return;
+    }
+    const [head, ...rest] = queue;
+    if (current) setHistory((h) => [...h, current]);
+    setPosition(0);
+    setDuration(0);
+    setCurrent(head);
+    setQueueState(rest);
+  }, [queue, current]);
 
   const prev = useCallback(() => {
-    setHistory((h) => {
-      if (h.length === 0) {
-        controlsRef.current?.seekTo(0);
-        return h;
-      }
-      const last = h[h.length - 1];
-      if (current) setQueueState((q) => [current, ...q]);
-      setCurrent(last);
-      return h.slice(0, -1);
-    });
-  }, [current]);
+    if (position > 4) {
+      controlsRef.current?.seekTo(0);
+      setPosition(0);
+      return;
+    }
+    if (history.length === 0) {
+      controlsRef.current?.seekTo(0);
+      setPosition(0);
+      return;
+    }
+    const last = history[history.length - 1];
+    if (current) setQueueState((q) => [current, ...q]);
+    setPosition(0);
+    setDuration(0);
+    setCurrent(last);
+    setHistory((h) => h.slice(0, -1));
+  }, [history, current, position]);
 
   const stop = useCallback(() => {
     setCurrent(null);

@@ -26,36 +26,79 @@ export function AppShell({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-30 border-b border-border bg-surface/80 backdrop-blur">
-        <div className="mx-auto flex max-w-5xl items-center justify-between p-4">
-          <Link to="/home">
-            <Logo />
-          </Link>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={toggle}
-              aria-label="Cambiar tema"
-              className="rounded-full p-2 hover:bg-muted"
+    <div className="min-h-screen bg-background text-foreground md:flex">
+      {/* Desktop sidebar */}
+      <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r border-border bg-surface-elevated px-4 py-6 md:flex">
+        <Link to="/home" className="mb-8 flex justify-center">
+          <Logo size="lg" className="[&_img]:h-28 [&_img]:w-28 sm:[&_img]:h-28 sm:[&_img]:w-28" />
+        </Link>
+        <nav className="flex flex-col gap-1">
+          {navItems.map(({ to, label, icon: Icon }) => (
+            <Link
+              key={to}
+              to={to}
+              activeProps={{ className: "bg-primary/15 text-primary" }}
+              inactiveProps={{ className: "text-muted-foreground" }}
+              className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition hover:bg-muted hover:text-foreground"
             >
-              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </button>
-            <button
-              onClick={signOut}
-              aria-label="Cerrar sesión"
-              className="rounded-full p-2 hover:bg-muted"
-            >
-              <LogOut className="h-5 w-5" />
-            </button>
-          </div>
+              <Icon className="h-5 w-5 shrink-0" />
+              {label}
+            </Link>
+          ))}
+        </nav>
+        <div className="mt-auto flex flex-col gap-1 pt-6">
+          <button
+            onClick={toggle}
+            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground"
+          >
+            {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            {theme === "dark" ? "Tema claro" : "Tema oscuro"}
+          </button>
+          <button
+            onClick={signOut}
+            className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground"
+          >
+            <LogOut className="h-5 w-5" />
+            Cerrar sesión
+          </button>
         </div>
-      </header>
+      </aside>
 
-      <main className={`mx-auto max-w-5xl px-4 py-6 ${current ? "pb-44" : "pb-24"}`}>
-        {children}
-      </main>
+      <div className="min-w-0 flex-1">
+        {/* Mobile header */}
+        <header className="sticky top-0 z-30 border-b border-border bg-surface/80 backdrop-blur md:hidden">
+          <div className="mx-auto flex max-w-5xl items-center justify-between p-4">
+            <Link to="/home">
+              <Logo />
+            </Link>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={toggle}
+                aria-label="Cambiar tema"
+                className="rounded-full p-2 hover:bg-muted"
+              >
+                {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              </button>
+              <button
+                onClick={signOut}
+                aria-label="Cerrar sesión"
+                className="rounded-full p-2 hover:bg-muted"
+              >
+                <LogOut className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
+        </header>
 
-      <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-surface-elevated">
+        <main
+          className={`mx-auto max-w-5xl px-4 py-6 md:px-8 ${current ? "pb-44 md:pb-32" : "pb-24 md:pb-10"}`}
+        >
+          {children}
+        </main>
+      </div>
+
+      {/* Mobile bottom nav */}
+      <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-surface-elevated md:hidden">
         <div className="mx-auto grid max-w-5xl grid-cols-4">
           {navItems.map(({ to, label, icon: Icon }) => (
             <Link
@@ -71,6 +114,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           ))}
         </div>
       </nav>
+
 
       <PlayerBar />
       <GlobalPlayer />
