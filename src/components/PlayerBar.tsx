@@ -27,7 +27,7 @@ export function PlayerBar() {
   if (!current) return null;
 
   return (
-    <div className="fixed bottom-16 left-0 right-0 z-40 border-t border-border bg-surface-elevated/95 backdrop-blur">
+    <div className="fixed bottom-16 left-0 right-0 z-40 border-t border-border bg-surface-elevated/95 backdrop-blur md:bottom-0">
       {/* Progress bar */}
       <input
         type="range"
