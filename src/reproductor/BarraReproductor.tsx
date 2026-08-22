@@ -1,5 +1,5 @@
 import { X, Maximize2, SkipForward, SkipBack, Play, Pause, Volume2 } from "lucide-react";
-import { usePlayer } from "@/lib/player";
+import { usePlayer } from "@/reproductor/estado-reproductor";
 
 function fmt(s: number) {
   if (!isFinite(s) || s < 0) return "0:00";

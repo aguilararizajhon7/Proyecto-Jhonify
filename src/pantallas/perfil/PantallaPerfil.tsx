@@ -2,7 +2,7 @@ import {useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { BlueButton, Input } from "@/components/AppShell";
+import { BlueButton, Input } from "@/diseno/LayoutApp";
 
 
 export function PantallaPerfil() {
@@ -43,7 +43,7 @@ export function PantallaPerfil() {
 
   async function signOut() {
     await supabase.auth.signOut();
-    navigate({ to: "/auth" });
+    navigate({ to: "/iniciar-sesion" });
   }
 
   if (isLoading) return <p className="text-sm text-muted-foreground">Cargando...</p>;

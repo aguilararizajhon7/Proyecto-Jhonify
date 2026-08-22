@@ -11,8 +11,8 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { ThemeProvider } from "@/lib/theme";
-import { PlayerProvider } from "@/lib/player";
+import { ThemeProvider } from "@/diseno/tema";
+import { PlayerProvider } from "@/reproductor/estado-reproductor";
 import { supabase } from "@/integrations/supabase/client";
 
 function NotFoundComponent() {

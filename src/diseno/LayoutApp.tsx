@@ -1,18 +1,18 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { Home, Library, Heart, User, Moon, Sun, LogOut, Search } from "lucide-react";
-import { useTheme } from "@/lib/theme";
-import { Logo } from "@/components/Logo";
-import { PlayerBar } from "@/components/PlayerBar";
-import { GlobalPlayer } from "@/components/GlobalPlayer";
+import { useTheme } from "@/diseno/tema";
+import { Logo } from "@/diseno/Logo";
+import { PlayerBar } from "@/reproductor/BarraReproductor";
+import { GlobalPlayer } from "@/reproductor/ReproductorGlobal";
 import { supabase } from "@/integrations/supabase/client";
-import { usePlayer } from "@/lib/player";
+import { usePlayer } from "@/reproductor/estado-reproductor";
 import type { ReactNode } from "react";
 
 const navItems = [
-  { to: "/home", label: "Inicio", icon: Search },
-  { to: "/library", label: "Biblioteca", icon: Library },
-  { to: "/favorites", label: "Favoritos", icon: Heart },
-  { to: "/profile", label: "Perfil", icon: User },
+  { to: "/inicio", label: "Inicio", icon: Search },
+  { to: "/biblioteca", label: "Biblioteca", icon: Library },
+  { to: "/favoritos", label: "Favoritos", icon: Heart },
+  { to: "/perfil", label: "Perfil", icon: User },
 ] as const;
 
 export function AppShell({ children }: { children: ReactNode }) {
@@ -22,14 +22,14 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   async function signOut() {
     await supabase.auth.signOut();
-    navigate({ to: "/auth" });
+    navigate({ to: "/iniciar-sesion" });
   }
 
   return (
     <div className="min-h-screen bg-background text-foreground md:flex">
       {/* Desktop sidebar */}
       <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r border-border bg-surface-elevated px-4 py-6 md:flex">
-        <Link to="/home" className="mb-8 flex justify-center">
+        <Link to="/inicio" className="mb-8 flex justify-center">
           <Logo size="lg" className="[&_img]:h-28 [&_img]:w-28 sm:[&_img]:h-28 sm:[&_img]:w-28" />
         </Link>
         <nav className="flex flex-col gap-1">
@@ -68,7 +68,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         {/* Mobile header */}
         <header className="sticky top-0 z-30 border-b border-border bg-surface/80 backdrop-blur md:hidden">
           <div className="mx-auto flex max-w-5xl items-center justify-between p-4">
-            <Link to="/home">
+            <Link to="/inicio">
               <Logo />
             </Link>
             <div className="flex items-center gap-2">

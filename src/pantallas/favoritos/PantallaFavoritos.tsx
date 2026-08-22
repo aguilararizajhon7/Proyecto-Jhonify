@@ -2,7 +2,7 @@ import {useRouter } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Play, Trash2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { usePlayer } from "@/lib/player";
+import { usePlayer } from "@/reproductor/estado-reproductor";
 
 
 export function PantallaFavoritos() {

@@ -1,11 +1,11 @@
 import {useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { Search, Play, Heart } from "lucide-react";
-import { searchYoutube, type YtResult } from "@/lib/youtube.functions";
-import { BlueButton, Input } from "@/components/AppShell";
-import { usePlayer } from "@/lib/player";
+import { searchYoutube, type YtResult } from "@/servidor/youtube.functions";
+import { BlueButton, Input } from "@/diseno/LayoutApp";
+import { usePlayer } from "@/reproductor/estado-reproductor";
 import { supabase } from "@/integrations/supabase/client";
-import { suggestions } from "@/lib/suggestions";
+import { suggestions } from "@/reproductor/canciones-sugeridas";
 
 
 export function PantallaInicio() {
