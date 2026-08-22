@@ -61,7 +61,7 @@ function fmt(s: number) {
   return `${m}:${r.toString().padStart(2, "0")}`;
 }
 
-export function GlobalPlayer() {
+export function ReproductorGlobal() {
   const {
     current,
     fullscreen,

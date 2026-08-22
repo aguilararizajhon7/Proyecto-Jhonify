@@ -8,7 +8,7 @@ function fmt(s: number) {
   return `${m}:${r.toString().padStart(2, "0")}`;
 }
 
-export function PlayerBar() {
+export function BarraReproductor() {
   const {
     current,
     stop,

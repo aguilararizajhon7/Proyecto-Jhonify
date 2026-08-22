@@ -2,8 +2,8 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { Home, Library, Heart, User, Moon, Sun, LogOut, Search } from "lucide-react";
 import { useTheme } from "@/diseno/tema";
 import { Logo } from "@/diseno/Logo";
-import { PlayerBar } from "@/reproductor/BarraReproductor";
-import { GlobalPlayer } from "@/reproductor/ReproductorGlobal";
+import { BarraReproductor } from "@/reproductor/BarraReproductor";
+import { ReproductorGlobal } from "@/reproductor/ReproductorGlobal";
 import { supabase } from "@/integrations/supabase/client";
 import { usePlayer } from "@/reproductor/estado-reproductor";
 import type { ReactNode } from "react";
@@ -15,7 +15,7 @@ const navItems = [
   { to: "/perfil", label: "Perfil", icon: User },
 ] as const;
 
-export function AppShell({ children }: { children: ReactNode }) {
+export function LayoutApp({ children }: { children: ReactNode }) {
   const { theme, toggle } = useTheme();
   const navigate = useNavigate();
   const { current } = usePlayer();
@@ -116,8 +116,8 @@ export function AppShell({ children }: { children: ReactNode }) {
       </nav>
 
 
-      <PlayerBar />
-      <GlobalPlayer />
+      <BarraReproductor />
+      <ReproductorGlobal />
     </div>
   );
 }
