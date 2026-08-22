@@ -1,24 +1,13 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import {Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { useTheme } from "@/lib/theme";
-import { Logo } from "@/components/Logo";
-import { BlueButton, Input } from "@/components/AppShell";
+import { useTheme } from "@/diseno/tema";
+import { Logo } from "@/diseno/Logo";
+import { BlueButton, Input } from "@/diseno/LayoutApp";
 import { Moon, Sun } from "lucide-react";
 
-export const Route = createFileRoute("/auth")({
-  head: () => ({
-    meta: [
-      { title: "Iniciar sesión — Jhonify" },
-      { name: "description", content: "Accede a tu cuenta Jhonify con correo o número." },
-      { property: "og:title", content: "Iniciar sesión — Jhonify" },
-      { property: "og:description", content: "Accede a tu cuenta Jhonify." },
-    ],
-  }),
-  component: AuthPage,
-});
 
-function AuthPage() {
+export function PantallaIniciarSesion() {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -36,7 +25,7 @@ function AuthPage() {
         ? await supabase.auth.signInWithPassword({ email: identifier.trim(), password })
         : await supabase.auth.signInWithPassword({ phone: identifier.trim(), password });
       if (error) throw error;
-      navigate({ to: "/home" });
+      navigate({ to: "/inicio" });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error al iniciar sesión");
     } finally {
@@ -83,7 +72,7 @@ function AuthPage() {
         </form>
         <p className="mt-4 text-center text-sm text-muted-foreground">
           ¿No tienes cuenta?{" "}
-          <Link to="/register" className="font-semibold text-primary hover:underline">
+          <Link to="/registro" className="font-semibold text-primary hover:underline">
             Regístrate
           </Link>
         </p>

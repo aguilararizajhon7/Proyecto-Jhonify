@@ -1,25 +1,14 @@
-import { createFileRoute, useRouter } from "@tanstack/react-router";
+import {useRouter } from "@tanstack/react-router";
 import { useState } from "react";
 import { Search, Play, Heart } from "lucide-react";
-import { searchYoutube, type YtResult } from "@/lib/youtube.functions";
-import { BlueButton, Input } from "@/components/AppShell";
-import { usePlayer } from "@/lib/player";
+import { searchYoutube, type YtResult } from "@/servidor/youtube.functions";
+import { BlueButton, Input } from "@/diseno/LayoutApp";
+import { usePlayer } from "@/reproductor/estado-reproductor";
 import { supabase } from "@/integrations/supabase/client";
-import { suggestions } from "@/lib/suggestions";
+import { suggestions } from "@/reproductor/canciones-sugeridas";
 
-export const Route = createFileRoute("/_authenticated/home")({
-  head: () => ({
-    meta: [
-      { title: "Inicio — Jhonify" },
-      { name: "description", content: "Busca canciones en YouTube y reprodúcelas al instante." },
-      { property: "og:title", content: "Inicio — Jhonify" },
-      { property: "og:description", content: "Busca y reproduce canciones." },
-    ],
-  }),
-  component: HomePage,
-});
 
-function HomePage() {
+export function PantallaInicio() {
   const [q, setQ] = useState("");
   const [results, setResults] = useState<YtResult[]>([]);
   const [error, setError] = useState<string | null>(null);

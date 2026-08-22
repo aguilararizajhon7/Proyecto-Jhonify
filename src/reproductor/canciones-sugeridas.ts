@@ -1,4 +1,4 @@
-import type { YtResult } from "./youtube.functions";
+import type { YtResult } from "@/servidor/youtube.functions";
 
 export type SuggestionCategory = {
   label: string;

@@ -1,48 +1,38 @@
-import { createFileRoute, useRouter } from "@tanstack/react-router";
+import {useRouter } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Play, Trash2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { usePlayer } from "@/lib/player";
+import { usePlayer } from "@/reproductor/estado-reproductor";
 
-export const Route = createFileRoute("/_authenticated/favorites")({
-  head: () => ({
-    meta: [
-      { title: "Favoritos — Jhonify" },
-      { name: "description", content: "Tus canciones favoritas guardadas en Jhonify." },
-      { property: "og:title", content: "Favoritos — Jhonify" },
-      { property: "og:description", content: "Tus canciones favoritas." },
-    ],
-  }),
-  component: FavoritesPage,
-});
 
-function FavoritesPage() {
+export function PantallaBiblioteca() {
   const { play } = usePlayer();
   const router = useRouter();
   const { data, isLoading } = useQuery({
-    queryKey: ["favorites"],
+    queryKey: ["library"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("favorites")
+        .from("library")
         .select("*")
-        .order("created_at", { ascending: false });
+        .order("added_at", { ascending: false });
       if (error) throw error;
       return data;
     },
   });
 
   async function remove(id: string) {
-    await supabase.from("favorites").delete().eq("id", id);
+    await supabase.from("library").delete().eq("id", id);
     router.invalidate();
   }
 
   return (
     <div className="space-y-4">
-      <h1 className="text-3xl font-bold">Favoritos</h1>
+      <h1 className="text-3xl font-bold">Biblioteca</h1>
+      <p className="text-sm text-muted-foreground">Canciones que has reproducido.</p>
       {isLoading && <p className="text-sm text-muted-foreground">Cargando...</p>}
       {!isLoading && (!data || data.length === 0) && (
         <p className="rounded-xl border border-dashed border-border p-8 text-center text-sm text-muted-foreground">
-          Aún no tienes favoritos. Toca el corazón en cualquier canción.
+          Tu biblioteca está vacía. Reproduce algo desde Inicio.
         </p>
       )}
       <ul className="space-y-2">

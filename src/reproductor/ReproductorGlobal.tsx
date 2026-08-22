@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, X, Play, Loader2, SkipForward, SkipBack, Pause } from "lucide-react";
-import { usePlayer } from "@/lib/player";
-import { getLyrics } from "@/lib/lyrics.functions";
-import { getRelated } from "@/lib/youtube.functions";
-import type { YtResult } from "@/lib/youtube.functions";
+import { usePlayer } from "@/reproductor/estado-reproductor";
+import { getLyrics } from "@/servidor/letras.functions";
+import { getRelated } from "@/servidor/youtube.functions";
+import type { YtResult } from "@/servidor/youtube.functions";
 
 type YTPlayer = {
   destroy: () => void;
@@ -61,7 +61,7 @@ function fmt(s: number) {
   return `${m}:${r.toString().padStart(2, "0")}`;
 }
 
-export function GlobalPlayer() {
+export function ReproductorGlobal() {
   const {
     current,
     fullscreen,
