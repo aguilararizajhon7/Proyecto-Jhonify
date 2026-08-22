@@ -1,22 +1,11 @@
-import { createFileRoute, useRouter } from "@tanstack/react-router";
+import {useRouter } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Play, Trash2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { usePlayer } from "@/lib/player";
 
-export const Route = createFileRoute("/_authenticated/favorites")({
-  head: () => ({
-    meta: [
-      { title: "Favoritos — Jhonify" },
-      { name: "description", content: "Tus canciones favoritas guardadas en Jhonify." },
-      { property: "og:title", content: "Favoritos — Jhonify" },
-      { property: "og:description", content: "Tus canciones favoritas." },
-    ],
-  }),
-  component: FavoritesPage,
-});
 
-function FavoritesPage() {
+export function PantallaFavoritos() {
   const { play } = usePlayer();
   const router = useRouter();
   const { data, isLoading } = useQuery({

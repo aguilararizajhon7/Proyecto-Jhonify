@@ -1,22 +1,11 @@
-import { createFileRoute, useRouter } from "@tanstack/react-router";
+import {useRouter } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Play, Trash2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { usePlayer } from "@/lib/player";
 
-export const Route = createFileRoute("/_authenticated/library")({
-  head: () => ({
-    meta: [
-      { title: "Biblioteca — Jhonify" },
-      { name: "description", content: "Tu biblioteca de canciones reproducidas en Jhonify." },
-      { property: "og:title", content: "Biblioteca — Jhonify" },
-      { property: "og:description", content: "Tu biblioteca musical." },
-    ],
-  }),
-  component: LibraryPage,
-});
 
-function LibraryPage() {
+export function PantallaBiblioteca() {
   const { play } = usePlayer();
   const router = useRouter();
   const { data, isLoading } = useQuery({

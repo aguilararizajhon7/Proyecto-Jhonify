@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import {Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useTheme } from "@/lib/theme";
@@ -6,19 +6,8 @@ import { Logo } from "@/components/Logo";
 import { BlueButton, Input } from "@/components/AppShell";
 import { Moon, Sun } from "lucide-react";
 
-export const Route = createFileRoute("/auth")({
-  head: () => ({
-    meta: [
-      { title: "Iniciar sesión — Jhonify" },
-      { name: "description", content: "Accede a tu cuenta Jhonify con correo o número." },
-      { property: "og:title", content: "Iniciar sesión — Jhonify" },
-      { property: "og:description", content: "Accede a tu cuenta Jhonify." },
-    ],
-  }),
-  component: AuthPage,
-});
 
-function AuthPage() {
+export function PantallaIniciarSesion() {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);

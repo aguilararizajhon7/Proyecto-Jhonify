@@ -1,22 +1,11 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import {useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { BlueButton, Input } from "@/components/AppShell";
 
-export const Route = createFileRoute("/_authenticated/profile")({
-  head: () => ({
-    meta: [
-      { title: "Perfil — Jhonify" },
-      { name: "description", content: "Tu perfil en Jhonify." },
-      { property: "og:title", content: "Perfil — Jhonify" },
-      { property: "og:description", content: "Tu perfil en Jhonify." },
-    ],
-  }),
-  component: ProfilePage,
-});
 
-function ProfilePage() {
+export function PantallaPerfil() {
   const navigate = useNavigate();
   const [displayName, setDisplayName] = useState("");
   const [saving, setSaving] = useState(false);

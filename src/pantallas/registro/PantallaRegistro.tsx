@@ -1,22 +1,11 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import {Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Logo } from "@/components/Logo";
 import { BlueButton, Input } from "@/components/AppShell";
 
-export const Route = createFileRoute("/register")({
-  head: () => ({
-    meta: [
-      { title: "Crear cuenta — Jhonify" },
-      { name: "description", content: "Regístrate en Jhonify con tu correo o número." },
-      { property: "og:title", content: "Crear cuenta — Jhonify" },
-      { property: "og:description", content: "Únete a Jhonify." },
-    ],
-  }),
-  component: RegisterPage,
-});
 
-function RegisterPage() {
+export function PantallaRegistro() {
   const [name, setName] = useState("");
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
